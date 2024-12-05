@@ -1,0 +1,12 @@
+{
+    "manifest_version": 3,
+    "name": "MERN Chrome Sidebar",
+    "version": "1.0",
+    "description": "A MERN stack-based Chrome sidebar.",
+    "permissions": ["storage", "activeTab"],
+    "host_permissions": ["http://localhost:5000/*"],
+    "sidebar_action": {
+        "default_title": "MERN Sidebar",
+        "default_panel": "index.html"
+    }
+}
