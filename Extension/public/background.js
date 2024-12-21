@@ -26,3 +26,24 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     // Replace this with your logic to save the link to the folder
   }
 });
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "authenticate") {
+    // Make sure to call getAuthToken() from the background script
+    chrome.identity.getAuthToken({ interactive: true }, function(token) {
+      if (chrome.runtime.lastError) {
+        console.error('Error during OAuth:', chrome.runtime.lastError);
+        sendResponse({ success: false });
+        return;
+      }
+
+      // Save the token to localStorage or Chrome Storage API
+      chrome.storage.local.set({ authToken: token }, function() {
+        sendResponse({ success: true, token: token });
+      });
+    });
+    
+    // Ensure to return true so the sendResponse works asynchronously
+    return true;
+  }
+});

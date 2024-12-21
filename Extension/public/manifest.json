@@ -6,6 +6,13 @@
     "background": {
       "service_worker": "background.js"
     },
+    "oauth2": {
+      "client_id": "AIzaSyDoRjp2MoIB7DtBn_uyUFOvX5fkFdzGxOE",
+      "scopes": [
+        "profile",
+        "email"
+      ]
+    },
     "host_permissions": ["<all_urls>"],
     "side_panel": {
         "default_path": "collectify.html"
