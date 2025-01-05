@@ -1,46 +1,52 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
 // Define the schema
 const userSchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
-        unique: true
     },
     email: {
         type: String,
         required: true,
         unique: true,
     },
-    password: {
-        type: String,
-        required: true
-    }
+    otp: Number, 
+    otpExpire: Date
 });
 
-// Pre-save hook to hash the password
-userSchema.pre('save', async function (next) {
+// Pre-save hook to clear OTP and OTP expiration if expired
+userSchema.pre('save', function (next) {
     const user = this;
 
-    // Only hash the password if it has been modified (or is new)
-    if (!user.isModified('password')) return next();
-
-    try {
-        // Generate a salt
-        const salt = await bcrypt.genSalt(10);
-        // Hash the password
-        user.password = await bcrypt.hash(user.password, salt);
-        next();
-    } catch (err) {
-        next(err);
+    // Check if OTP has expired
+    if (user.otpExpire && user.otpExpire < Date.now()) {
+        // Clear OTP and OTP expiration if expired
+        user.otp = undefined;
+        user.otpExpire = undefined;
     }
+
+    next();
 });
 
-// Compare password method
-userSchema.methods.comparePassword = async function (candidatePassword) {
-    return await bcrypt.compare(candidatePassword, this.password);
+// Function to clean up expired OTPs
+const cleanupExpiredOTPs = async () => {
+    const now = Date.now();
+    try {
+        // Find users with expired OTPs and update their records
+        await User.updateMany(
+            { otpExpire: { $lt: now } }, // Condition: OTP expired
+            { $unset: { otp: "", otpExpire: "" } } // Remove OTP and OTP expiration
+        );
+        console.log('Expired OTPs cleaned up');
+    } catch (err) {
+        console.error('Error cleaning up expired OTPs:', err);
+    }
 };
+
+// Set an interval to check for expired OTPs every 5 minutes (300000 ms)
+setInterval(cleanupExpiredOTPs, 15 * 60 * 1000); // OTP clear up - 15 mins
+
 
 // Export the model
 const User = mongoose.model('User', userSchema);

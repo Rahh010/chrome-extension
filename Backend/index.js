@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db')
 const authRoutes = require('./routes/auth');
+const cookieParser = require('cookie-parser');
+
 // This import in the index.js is must
 // this is because we want to access our .env files
 // i have download a package called 'dotenv'
@@ -13,6 +15,7 @@ const app = express();
 // middle wares
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 // Connecting DataBase
 connectDB()
