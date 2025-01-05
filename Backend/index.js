@@ -1,19 +1,25 @@
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
-require('dotenv').config();
+const connectDB = require('./config/db')
+const authRoutes = require('./routes/auth');
+// This import in the index.js is must
+// this is because we want to access our .env files
+// i have download a package called 'dotenv'
+require("dotenv").config();
 
+// intializing Express 
 const app = express();
+
+// middle wares
 app.use(cors());
 app.use(express.json());
 
-mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => console.log('MongoDB connected'))
-    .catch((err) => console.error('MongoDB error:', err));
+// Connecting DataBase
+connectDB()
 
 
-const authRoutes = require('./routes/auth');
-app.use('/api/auth', authRoutes);
+// Routes
+app.use('/api/auth', authRoutes)
 
+// Intializing the server
 app.listen(5000, () => console.log('Backend running on http://localhost:5000'));
