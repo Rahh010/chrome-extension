@@ -1,0 +1,89 @@
+.header {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.parentLoader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.error {
+    color: red;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form > input, button{
+    height: 40px;
+    width: 80%;
+    border: 2px solid var(--primary);
+    background-color: var(--secondary);
+    border-radius: 10px;
+    margin: 15px 0;
+    /* font-weight: bold; */
+    color:var(--bg);
+}
+
+.form > input::placeholder {
+    color: rgb(85, 83, 83);
+}
+
+.form > input{
+    padding-left: 10px;    
+    color:var(--bg);
+    font-size: 18px;
+}
+
+
+.form > button {
+    cursor: pointer;
+    background-color: var(--primary);
+    color: var(--text);
+    border:  var(--accent);
+}
+
+.form > h4 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.form > p {
+    font-size: 16px;
+}
+
+.link {
+    color: var(--accent);
+}
+
+
+/* HTML: <div class="loader"></div> */
+.loader {
+    width: 12px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #000;
+    clip-path: inset(-220%);
+    animation: l28 2s infinite linear;
+  }
+  @keyframes l28 {
+    0%  {box-shadow:0 0 0 0   , 40px 0,-40px 0,0 40px,0 -40px}
+    10% {box-shadow:0 0 0 0   , 12px 0,-40px 0,0 40px,0 -40px}
+    20% {box-shadow:0 0 0 4px , 0px  0,-40px 0,0 40px,0 -40px}
+    30% {box-shadow:0 0 0 4px , 0px  0,-12px 0,0 40px,0 -40px}
+    40% {box-shadow:0 0 0 8px , 0px  0,  0px 0,0 40px,0 -40px}
+    50% {box-shadow:0 0 0 8px , 0px  0,  0px 0,0 12px,0 -40px}
+    60% {box-shadow:0 0 0 12px, 0px  0,  0px 0,0  0px,0 -40px}
+    70% {box-shadow:0 0 0 12px, 0px  0,  0px 0,0  0px,0 -12px}
+    80% {box-shadow:0 0 0 16px, 0px  0,  0px 0,0  0px,0  0px }
+    90%,
+    100%{box-shadow:0 0 0 0   , 40px 0,-40px 0,0 40px,0 -40px}
+  }

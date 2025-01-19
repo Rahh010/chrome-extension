@@ -1,0 +1,39 @@
+.main {
+    padding: 20px;
+}
+
+.addALink {
+    margin: 20px auto;
+    padding: 10px;
+    border: 2px solid var(--secondary);
+    color: var(--text);
+    text-align: center;
+    border-radius: 8px;
+    width: 80%;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.LinksList {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 16px;
+}
+
+.card {
+    border: 1px solid var(--secondary);
+    border-radius: 8px;
+    padding: 16px;
+    width: 250px;
+    color: var(--text);
+    overflow: hidden;
+    /* background-color: #f9f9f9; */
+    box-shadow: 0 4px 6px var(--accent);
+}
+
+.notAvail {
+    font-size: 16px;
+    margin: 10px auto;
+}

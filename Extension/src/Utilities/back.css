@@ -1,0 +1,7 @@
+.back {
+    width: 100%;
+    height: 50px;
+    font: bold;
+    background-color: var(--primary);
+    color: var(--text);
+}

@@ -1,0 +1,32 @@
+.main {
+    width: 100%;
+    min-height: fit-content;
+}
+
+.tab {
+    display: flex;
+    /* justify-content: space-evenly; */
+    width: 100%;
+}
+
+.tabItem {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    border-radius: 25px;
+    flex: 1;
+    margin: 0 10px;
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--secondary);
+    background-color: var(--bg);
+    border: 2px solid var(--secondary);
+}
+
+.active {
+    border: 2px solid var(--primary);
+    background-color: var(--primary); /* Active tab color */
+    color: var(--text);
+}

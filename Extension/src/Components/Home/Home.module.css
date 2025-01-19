@@ -1,0 +1,27 @@
+.main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.main > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 80px;
+    border: 4px solid var(--secondary);
+    color: var(--secondary);
+    border-radius: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    transition-property: background-color, color, border;
+    transition-duration: 500ms;
+}
+
+.main > div:hover {
+    border: 4px solid var(--primary);
+    background-color: var(--primary);
+    color: var(--text);
+}

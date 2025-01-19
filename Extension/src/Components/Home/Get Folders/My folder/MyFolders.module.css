@@ -1,0 +1,40 @@
+.card { 
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 18px;
+}
+
+.card > div {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 16px;
+    width: 250px;
+    border: 2px solid var(--secondary);
+    background-color: var(--bg);
+    /* background-color: black; */
+    color: var(--secondary);
+    cursor: pointer; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* Required for transform effects */
+}
+
+.card > div:hover {
+    transform: translateY(-5px); /* Moves the element up by 5px */
+    box-shadow: 0 4px 7px #E9F8F9; /* Adds a subtle shadow effect */
+}
+
+.error {
+    /* color: red; */
+    margin-top: 50px;
+    font-size: 22px;
+    text-align: center;
+}
+
+.delete {
+    background-color: rgb(226, 22, 22);
+    border: none;
+    color: var(--text);
+    width: 100%;
+}

@@ -1,0 +1,47 @@
+.add {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    margin: 20px auto;
+    width: 80%;
+    border-radius: 10px;
+    border: 2px solid var(--secondary);
+    color: var(--text);
+    font-size: 16px;
+}
+
+.notAvail {
+    text-align: center;
+    font-size: 16px;
+    margin: 20px auto;
+}
+
+.cardContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; 
+    font-size: 18px;
+    gap: '20px';
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 16px;
+    width: 250px;
+    border: 2px solid var(--secondary);
+    background-color: var(--bg);
+    /* background-color: black; */
+    color: var(--secondary);
+    cursor: pointer; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* Required for transform effects */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Moves the element up by 5px */
+    box-shadow: 0 4px 7px #E9F8F9; /* Adds a subtle shadow effect */
+}

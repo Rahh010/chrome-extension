@@ -1,0 +1,28 @@
+.nav {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    /* font-size: 16px; */
+    align-items: center;
+}
+
+.nav > h2 {
+    flex: 3;
+    font-size: 28px;
+    font-weight: bold;
+    width: fit-content;
+    padding: 0 20px;
+}
+
+.nav > button {
+    font-size: 16px;
+    flex: 1;
+    height: 30px;
+    max-width: 80px;
+    margin: 10px;
+    border: none;
+    background-color: var(--primary);
+    color: var(--text);
+    border-radius: 5px;
+    cursor:pointer;
+}
