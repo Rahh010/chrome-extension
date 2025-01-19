@@ -5,6 +5,7 @@ const userSchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
+        unique: false
     },
     email: {
         type: String,
@@ -15,19 +16,6 @@ const userSchema = mongoose.Schema({
     otpExpire: Date
 });
 
-// Pre-save hook to clear OTP and OTP expiration if expired
-userSchema.pre('save', function (next) {
-    const user = this;
-
-    // Check if OTP has expired
-    if (user.otpExpire && user.otpExpire < Date.now()) {
-        // Clear OTP and OTP expiration if expired
-        user.otp = undefined;
-        user.otpExpire = undefined;
-    }
-
-    next();
-});
 
 // Function to clean up expired OTPs
 const cleanupExpiredOTPs = async () => {

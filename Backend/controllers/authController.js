@@ -7,6 +7,7 @@ const OTP_EXPIRATION_TIME = 10 * 60 * 1000; // 10 minute expiration time
 // endpoint - api/auth/register
 exports.register = async (req, res) => {
     const { name, email } = req.body;
+    console.log(name,email)
 
     try {
         // Check if the user already exists
@@ -35,11 +36,11 @@ exports.register = async (req, res) => {
         // Sending response to the client
         res .status(200)
             .cookie('authToken', token, {
-                httpOnly: true,    // Prevent JavaScript from accessing the cookie
-                maxAge: 60 * 60 * 1000,  // 1 hour
-                secure: process.env.NODE_ENV === 'production',      // Only secure when production
+                httpOnly: true,
+                maxAge: 90 * 24 * 60 * 60 * 1000,  // 90 days
             })
             .json({
+                success: true,
                 message: "OTP sent successfully"
             })
 
@@ -48,6 +49,8 @@ exports.register = async (req, res) => {
             .json({ message: 'Server error', error: err.message });
     }
 }
+
+// endpoint - api/auth/login
 
 exports.login = async (req, res) => {
     const { email } = req.body;
@@ -86,21 +89,25 @@ exports.login = async (req, res) => {
                 maxAge: 60 * 60 * 1000,  // 1 hour
                 secure: process.env.NODE_ENV === 'production',      // Only secure when production
             })
-            .json({ message: 'OTP sent' });
+            .json({ success: true, message: 'OTP sent' });
 
     } catch (err) {
         res.status(500).json({ message: 'Server error', error: err.message });
     }
 };
 
+// endpoint - api/auth/validate
 exports.ValidateOTP = async (req, res) => {
     try {
         // Extract the token from the cookies
         const token = req.cookies.authToken;
+        console.log(token)
         
         if (!token) {
             return res.status(400).json({ message: 'Token is missing' });
         }
+
+        console.log(req.body)
 
         // Extract OTP from the request body
         const { otp } = req.body;
@@ -115,12 +122,14 @@ exports.ValidateOTP = async (req, res) => {
         // Find the user associated with the email in the token
         const user = await User.findOne({ email: decoded.email });
 
+        console.log(user)
+
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
 
         // Check if OTP matches and has not expired
-        if (user.otp === otp && Date.now() < new Date(user.otpExpire).getTime()) {
+        if (user.otp === Number(otp) && Date.now() < new Date(user.otpExpire).getTime()) {
 
             // Generating JWT token
             const token = jwt.sign({ name: user.name, email: user.email , loggedIn: true }, process.env.JWT_SECRET, {
@@ -132,10 +141,10 @@ exports.ValidateOTP = async (req, res) => {
             res .status(200)
             .cookie('authToken', token, {
                 httpOnly: true,    // Prevent JavaScript from accessing the cookie
-                maxAge: 60 * 60 * 1000,  // 1 hour
+                maxAge: 90 * 24 * 60 * 60 * 1000,  // 90 days
                 secure: process.env.NODE_ENV === 'production',      // Only secure when production
             })
-            .json({ message: 'Logged In' });
+            .json({ success: true, message: 'Logged In' });
 
         } else {
             // OTP is invalid or expired
@@ -148,3 +157,17 @@ exports.ValidateOTP = async (req, res) => {
         return res.status(500).json({ message: 'Server error', error: e.message });
     }
 };
+
+// endpoint - api/auth/logout
+exports.logOut = async (req, res) => {
+    // Clear the HttpOnly cookie by setting an expired date
+    res.clearCookie("authToken", {
+        httpOnly: true, // Ensure it's an HttpOnly cookie
+        secure: process.env.NODE_ENV === "production", // Set this to true in production if using HTTPS
+        sameSite: "Strict", // Optional: Helps prevent CSRF attacks
+        path: "/", // Specify the path where the cookie should be deleted
+    });
+
+    // Respond with a message after logout
+    res.status(200).json({ message: "Logged out successfully" });
+}
