@@ -7,6 +7,9 @@ const {
     logOut
 } = require('../controllers/authController');
 
+// checking route
+router.get('/', (req, res) => res.json({ message: "vanakkam da mapla" }) )
+
 // Register Route - api/auth/register
 router.post('/register', register)
 
