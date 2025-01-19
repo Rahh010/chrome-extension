@@ -15,7 +15,7 @@ const cloudinary = require('cloudinary').v2;
 require("dotenv").config();
 
 
-console.log('Email User:', process.env.EMAIL_USER);
+console.log('Email User:', process.env.MAIL);
 console.log('App Password:', process.env.APP_PASS);
 
 // intializing Express 
