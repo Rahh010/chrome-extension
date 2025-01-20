@@ -1,6 +1,10 @@
 // sendEmail.js
 const nodemailer = require('nodemailer');
 
+console.log("MAIL:", process.env.MAIL);
+console.log("APP_PASS:", process.env.APP_PASS ? "*****" : "Missing");
+
+
 // Function to send an email
 const sendEmail = async ({ email, name, otp }) => {
     try {
